@@ -13,4 +13,4 @@ Zhejiang Normal University
 - Drug-Target Interaction
 - Object Detection
 - Multimodal
-- Casual Inference
+- Causal Inference
