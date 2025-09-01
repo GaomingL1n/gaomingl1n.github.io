@@ -6,11 +6,16 @@ redirect_from:
   - /about/
   - /about.html
 ---
+# Gaoming Lin
+
 ## Education
-Zhejiang Normal University
+Zhejiang Normal University, China
+Yangtze Delta Region Institute (Quzhou), UESTC, China(Visiting student)
 
 ## Research Interest
 - Drug-Target Interaction
-- Object Detection
 - Multimodal
 - Causal Inference
+- Computer Vision
+- Object Detection
+- DDPM
