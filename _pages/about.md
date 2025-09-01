@@ -7,7 +7,7 @@ redirect_from:
   - /about.html
 ---
 
-Contact me: gaominglin(at)zjnu.edu.cn
+*Contact me: gaominglin(at)zjnu.edu.cn*
 
 ## Education📘
 Zhejiang Normal University, China
