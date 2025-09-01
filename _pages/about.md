@@ -7,12 +7,14 @@ redirect_from:
   - /about.html
 ---
 
-## Education
+Contact me: gaominglin(at)zjnu.edu.cn
+
+## Education📘
 Zhejiang Normal University, China
 
 Yangtze Delta Region Institute (Quzhou), UESTC, China(Visiting student)
 
-## Research Interest
+## Research Interest🚀
 - Computer Vision
 - Object Detection
 - Multimodal
