@@ -13,9 +13,9 @@ Zhejiang Normal University, China
 Yangtze Delta Region Institute (Quzhou), UESTC, China(Visiting student)
 
 ## Research Interest
-- Drug-Target Interaction
-- Multimodal
-- Causal Inference
 - Computer Vision
 - Object Detection
+- Multimodal
+- Drug-Target Interaction
+- Causal Inference
 - DDPM
