@@ -2,7 +2,7 @@
 title: "TAPB: an interventional debiasing framework for alleviating target prior bias in drug-target interaction prediction"
 collection: publications
 permalink: /publication/2024-02-17-paper-title-number-4
-excerpt: 'Drug-Target Interaction, Deep learning, Causal Inference.![TAPB](/images/1200.png "TAPB")'
+excerpt: 'Drug-Target Interaction, Deep learning, Causal Inference.![TAPB](/images/TAPB.png "TAPB"){width=1216 height=729}'
 date: 2025-12-02
 venue: 'Nature Communications'
 paperurl: 'https://www.nature.com/articles/s41467-025-66915-1'
