@@ -18,7 +18,9 @@ body::before {
   bottom: 0;
   z-index: -1;
   background-color: #eef1f5; /* 图加载中/缺失时的淡灰兜底 */
-  background-image: url('/images/background.jpg');
+  /* 随机背景：head/custom.html 里按 images/ 下 backgroundN.* 的图片随机注入 --bg；
+   * 没匹配到时兜底用 background1.jpg */
+  background-image: var(--bg, url('/images/background1.jpg'));
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;

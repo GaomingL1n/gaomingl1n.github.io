@@ -27,6 +27,21 @@
 <link rel="stylesheet" href="/assets/css/music-player.css"/>
 <link rel="stylesheet" href="/assets/css/cards.css"/>
 
+<!-- 随机背景：每次打开随机挑一张 images/ 下名为 backgroundN.* 的图片（如 background1.jpg、
+     background2.png）。构建时自动枚举，新增这种命名的图片无需改任何代码。 -->
+<script>
+(function () {
+  var BGS = [
+    {% for f in site.static_files %}{% if f.basename matches '^background[0-9]*$' %}
+    '{{ f.path }}',{% endif %}{% endfor %}
+  ];
+  var pick = BGS[Math.floor(Math.random() * BGS.length)];
+  if (pick) {
+    document.documentElement.style.setProperty('--bg', "url('" + pick + "')");
+  }
+})();
+</script>
+
 
 <!-- Support for MatJax -->
 <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
