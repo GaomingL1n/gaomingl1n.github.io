@@ -21,3 +21,7 @@ Yangtze Delta Region Institute (Quzhou), UESTC, China(Visiting student)
 - Drug-Target Interaction
 - Causal Inference
 - DDPM
+
+## <img src="/images/news.webp" style="height:1.2em; vertical-align:-0.125em" alt=""> News
+- 2026.08: Im stutck.
+- 2025.12: one paper published on Nat Commun. (First co-Author)
