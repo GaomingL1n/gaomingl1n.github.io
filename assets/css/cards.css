@@ -5,14 +5,23 @@
  * 让信息在樱花/背景图之上更清晰。
  */
 
-/* ---- 1. 全站统一背景：一张背景图，cover 铺满、不随滚动 ---- */
-body {
+/* ---- 1. 全站统一背景 ----
+ * 用 body::before 做固定整屏背景层（position: fixed 天然铺满视口、不随滚动），
+ * 避免 background-attachment: fixed 在樱花动画画布(整屏 rAF 重绘)下
+ * 出现背景撕裂/错位/变色带的问题。z-index:-1 垫在正文之下。 */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
   background-color: #eef1f5; /* 图加载中/缺失时的淡灰兜底 */
   background-image: url('/images/background.jpg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  background-attachment: fixed;
 }
 
 /* ---- 2. 卡片通用配方（三处共用） ---- */
