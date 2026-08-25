@@ -9,7 +9,7 @@ redirect_from:
 
 *Contact me: gaominglin(at)zjnu.edu.cn* 
 
-## <img src="/images/gigachad.webp" style="height:1.2em; vertical-align:-0.125em" alt=""> Education 
+## <img src="/images/brayn.webp" style="height:1.2em; vertical-align:-0.125em" alt=""> Education 
 Zhejiang Normal University, China
 
 Yangtze Delta Region Institute (Quzhou), UESTC, China(Visiting student)
@@ -22,6 +22,6 @@ Yangtze Delta Region Institute (Quzhou), UESTC, China(Visiting student)
 - Causal Inference
 - DDPM
 
-## <img src="/images/brayn.webp" style="height:1.2em; vertical-align:-0.125em" alt=""> News
+## <img src="/images/poppip.webp" style="height:1.2em; vertical-align:-0.125em" alt=""> News
 - 2026.08: Im stuck. Dont know what to do next.
 - 2025.12: One [paper](https://www.nature.com/articles/s41467-025-66915-1) published on Nat Commun. (First co-Author)
