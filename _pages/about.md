@@ -9,12 +9,12 @@ redirect_from:
 
 *Contact me: gaominglin(at)zjnu.edu.cn* 
 
-## Education📘
+## Education <img src="/images/morty.gif" style="height:1.2em; vertical-align:-0.125em" alt="">
 Zhejiang Normal University, China
 
 Yangtze Delta Region Institute (Quzhou), UESTC, China(Visiting student)
 
-## Research Interest <img src="/images/rick.webp" style="height:1em; vertical-align:-0.125em" alt="">
+## Research Interest <img src="/images/rick.webp" style="height:1.2em; vertical-align:-0.125em" alt="">
 - Computer Vision
 - Object Detection
 - Multimodal
