@@ -53,7 +53,7 @@
     overlay = document.createElement('button');
     overlay.id = 'music-play-overlay';
     overlay.type = 'button';
-    overlay.textContent = '▶ 播放音乐';
+    overlay.textContent = '▶ Play Music';
     overlay.hidden = true;
     overlay.addEventListener('click', function () {
       if (!ap) { return; }
