@@ -78,14 +78,16 @@
         break;
       case 'fnx':
         random = -0.5 + Math.random() * 1;
-        ret = function (x, y) { return x + 0.5 * random - 1.7; };
+        // 水平飘移：原速度的 80%
+        ret = function (x, y) { return x + 0.4 * random - 1.36; };
         break;
       case 'fny':
-        random = 1.5 + Math.random() * 0.7;
+        // 下落速度：原速度的 80%（想再调快慢改这里的 1.2 / 0.56）
+        random = 1.2 + Math.random() * 0.56;
         ret = function (x, y) { return y + random; };
         break;
       case 'fnr':
-        random = Math.random() * 0.03;
+        random = Math.random() * 0.024;
         ret = function (r) { return r + random; };
         break;
     }
