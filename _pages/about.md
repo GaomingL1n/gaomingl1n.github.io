@@ -24,4 +24,4 @@ Yangtze Delta Region Institute (Quzhou), UESTC, China(Visiting student)
 
 ## <img src="/images/news.webp" style="height:1.2em; vertical-align:-0.125em" alt=""> News
 - 2026.08: Im stutck.
-- 2025.12: one paper published on Nat Commun. (First co-Author)
+- 2025.12: one [paper](https://www.nature.com/articles/s41467-025-66915-1) published on Nat Commun. (First co-Author)
