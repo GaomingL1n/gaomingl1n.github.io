@@ -20,7 +20,11 @@ layout: compress
 
     {% include music-player.html %}
 
-    
+    {% if page.url == "/" %}
+      {% include door.html %}
+    {% endif %}
+
+
 
     {% include scripts.html %}
 

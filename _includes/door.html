@@ -1,0 +1,115 @@
+<!-- ===== 开场木门动画（开门见山，直接透出主页） ===== -->
+<!-- 仅在主页(_layouts/default.html 条件 include)第一次访问时显示；逻辑见 assets/js/door.js -->
+<div id="door-overlay">
+  <div class="door-scene">
+    <div class="door door-left">
+      <span class="door-knob knob-left"></span>
+    </div>
+    <div class="door door-right">
+      <span class="door-knob knob-right"></span>
+    </div>
+
+    <button id="door-open-btn" type="button">OPEN</button>
+    <p class="door-hint">Click to enter</p>
+  </div>
+</div>
+
+<noscript>
+  <style>#door-overlay{display:none!important}</style>
+</noscript>
+
+<style>
+/* 关键点：初始背景为黑色挡住主页，开门时背景变透明，直接透出底下的真实主页 */
+#door-overlay {
+  position: fixed; inset: 0;
+  /* 9998：压在音乐播放器(9999/10000)下面，门和播放器可同时看到、播放器可点 */
+  z-index: 9998;
+  background: #050403;
+  transition: background 0.8s ease; /* 背景透明化过渡 */
+}
+#door-overlay.open {
+  background: transparent; /* 开门时遮罩层变透明 */
+}
+
+.door-scene {
+  position: absolute; inset: 0;
+  perspective: 1500px;
+  overflow: hidden;
+}
+
+/* 木门 */
+.door {
+  position: absolute; top: 0; bottom: 0;
+  width: 50.2%;
+  transition: transform 1.5s cubic-bezier(.6,.02,.25,1);
+  backface-visibility: hidden;
+  box-shadow: 0 0 60px rgba(0,0,0,.8);
+  background-color: #7a4a21;
+  background-image:
+    repeating-linear-gradient(90deg, rgba(0,0,0,.5) 0 2px, transparent 2px 130px),
+    repeating-linear-gradient(90deg, rgba(255,215,160,.06) 0 65px, rgba(0,0,0,.10) 65px 130px),
+    repeating-linear-gradient(2deg, rgba(0,0,0,.08) 0 2px, rgba(255,255,255,.02) 2px 6px),
+    linear-gradient(180deg, rgba(255,235,200,.10), rgba(0,0,0,.30));
+}
+.door-left  { left: 0;  transform-origin: left center; }
+.door-right { right: 0; transform-origin: right center; }
+
+.door::after {
+  content: ""; position: absolute; inset: 22px 30px;
+  border: 4px solid rgba(0,0,0,.35); border-radius: 6px;
+  box-shadow: inset 0 0 0 2px rgba(255,220,170,.08);
+}
+
+.door-knob {
+  position: absolute; top: 50%; margin-top: -7px;
+  width: 14px; height: 14px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #ffe9a8, #b8860b 60%, #5c3a00);
+  box-shadow: 0 2px 6px rgba(0,0,0,.6);
+}
+.knob-left  { right: 28px; }
+.knob-right { left: 28px; }
+
+/* OPEN 按钮 */
+#door-open-btn {
+  position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%,-50%); z-index: 10;
+  padding: 14px 46px; font-size: 15px;
+  letter-spacing: .35em; text-indent: .35em;
+  color: #f5e6c8; background: rgba(0,0,0,.35);
+  border: 1px solid rgba(245,230,200,.6);
+  border-radius: 999px; cursor: pointer;
+  backdrop-filter: blur(4px);
+  transition: opacity .4s, background .3s, transform .4s;
+}
+#door-open-btn:hover {
+  background: rgba(245,230,200,.15);
+  transform: translate(-50%,-50%) scale(1.05);
+}
+.door-hint {
+  position: absolute; left: 50%; bottom: 8%;
+  transform: translateX(-50%); margin: 0;
+  color: rgba(245,230,200,.5); font-size: 13px;
+  letter-spacing: .2em; transition: opacity .4s;
+}
+
+/* ---- 开门状态：门转开，按钮消失 ---- */
+#door-overlay.open .door-left  { transform: rotateY(100deg); }
+#door-overlay.open .door-right { transform: rotateY(-100deg); }
+#door-overlay.open #door-open-btn,
+#door-overlay.open .door-hint  { opacity: 0; pointer-events: none; }
+
+/* ---- 动画播完后移除自身，释放底层页面的交互 ---- */
+#door-overlay.done {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .door { transition-duration: .01s; }
+  #door-overlay { transition-duration: .01s; }
+}
+@media (max-width: 640px) {
+  .door-scene { perspective: 900px; }
+}
+</style>
