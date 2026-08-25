@@ -2,8 +2,11 @@
  * Music player for Academic Pages.
  *
  * A thin wrapper around APlayer (self-hosted in assets/js/aplayer/) that adds:
- *  - a "play music" overlay button (browsers block unmuted autoplay, so the
- *    visitor starts playback with a click; after that we try to auto-resume)
+ *  - playback starts from a user gesture: on the homepage the door's OPEN
+ *    button is that gesture (via window.musicPlayer.play(), see door.js);
+ *    elsewhere the APlayer bar's own play button works as usual
+ *  - after the visitor has played once on this domain, we try to auto-resume
+ *    on later page loads (browsers unlock autoplay-with-sound post-interaction)
  *  - cross-page continuity: play state is saved to sessionStorage so the music
  *    continues where it left off after navigating between pages
  *  - default volume of 20% (requirement), persisted across pages
@@ -20,7 +23,7 @@
   var INTERACT_KEY = 'musicHasInteracted';  // localStorage: visitor played once on this domain before
 
   var ap = null;
-  var overlay = null;
+  var pendingPlay = false; // a caller asked to play before APlayer was ready
 
   function readState() {
     try {
@@ -44,27 +47,16 @@
     } catch (e) { /* storage full/unavailable: ignore */ }
   }
 
-  /* ---- play button overlay ------------------------------------------------ */
-
-  function showOverlay() { if (overlay) { overlay.hidden = false; } }
-  function hideOverlay() { if (overlay) { overlay.hidden = true; } }
-
-  function buildOverlay() {
-    overlay = document.createElement('button');
-    overlay.id = 'music-play-overlay';
-    overlay.type = 'button';
-    overlay.textContent = '▶ Play Music';
-    overlay.hidden = true;
-    overlay.addEventListener('click', function () {
-      if (!ap) { return; }
-      var p = ap.play();
-      if (p && typeof p.then === 'function') {
-        p.then(hideOverlay, showOverlay);
-      } else {
-        hideOverlay();
-      }
-    });
-    document.body.appendChild(overlay);
+  /* ---- play entry point ----------------------------------------------------
+   * The play button overlay is gone; on the homepage the door's OPEN button is
+   * the playback gesture (see assets/js/door.js). We expose a global hook so
+   * any page element can start playback; the APlayer bar's own play button is
+   * always available too.
+   */
+  function play() {
+    if (!ap) { pendingPlay = true; return; } // start once APlayer is ready
+    pendingPlay = false;
+    return ap.play();
   }
 
   /* ---- restore saved state, then (maybe) auto-resume ---------------------- */
@@ -94,21 +86,15 @@
 
   function attemptAutoResume() {
     var s = readState();
+    if (!s || !s.playing) { return; } // first visit / was paused → nothing to resume
+
     var interacted = false;
     try { interacted = localStorage.getItem(INTERACT_KEY) === '1'; } catch (e) {}
-
-    if (s && s.playing && interacted) {
+    if (interacted) {
       // The visitor has played on this domain before, so Chrome/Safari usually
-      // permit autoplay-with-sound here. If the browser still rejects it,
-      // keep the play button visible.
-      var p = ap.play();
-      if (p && typeof p.then === 'function') {
-        p.then(hideOverlay, showOverlay);
-      } else {
-        hideOverlay();
-      }
-    } else {
-      showOverlay(); // first visit / was paused → let the visitor click to start
+      // permit autoplay-with-sound here. If the browser still rejects it, the
+      // APlayer bar's own play button remains available.
+      play();
     }
   }
 
@@ -116,7 +102,8 @@
 
   function bindSavers() {
     ap.on('play', function () {
-      hideOverlay();
+      // First successful playback marks this domain as "interacted", which is
+      // what unlocks autoplay-with-sound for later page loads.
       try { localStorage.setItem(INTERACT_KEY, '1'); } catch (e) {}
       writeState();
     });
@@ -169,7 +156,7 @@
           })
         });
 
-        buildOverlay();
+        if (pendingPlay) { pendingPlay = false; ap.play(); } // OPEN clicked before init finished
         restoreState();
         bindSavers();
         attemptAutoResume();
@@ -178,6 +165,12 @@
         console.warn('Music player init failed:', err);
       });
   }
+
+  /* Expose the playback entry for other scripts (the homepage door's OPEN
+   * button, loaded after this file, calls window.musicPlayer.play()).
+   * APlayer's ap.play() returns undefined in 1.10.1, so callers must not
+   * inspect the return value; rely on the 'play' event instead. */
+  window.musicPlayer = { play: play };
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);

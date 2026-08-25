@@ -6,7 +6,8 @@
  *
  * 行为：
  *  - 每个浏览器只显示一次（localStorage 'door-opened'）
- *  - 点击 OPEN → 门转开、遮罩背景变透明、动画播完销毁自身
+ *  - 点击 OPEN → 门转开、遮罩背景变透明、动画播完销毁自身；同时作为
+ *    播放手势调用 window.musicPlayer.play()（取代原来的 ▶ 播放按钮）
  *  - 按 ESC 直接跳过
  *  - 搜索引擎爬虫 / prefers-reduced-motion 用户直接跳过
  */
@@ -34,6 +35,12 @@
     if (overlay.classList.contains('open')) return;
     overlay.classList.add('open'); // 门转开，背景变透明，直接透出主页
     try { localStorage.setItem(KEY, '1'); } catch (e) {}
+
+    // OPEN 兼任播放按钮：点击即开音乐（门遮罩在播放器之下，不挡音乐）。
+    // music-player.js 在 door.js 之前加载并同步暴露 window.musicPlayer。
+    if (window.musicPlayer && typeof window.musicPlayer.play === 'function') {
+      window.musicPlayer.play();
+    }
 
     setTimeout(function () {
       overlay.classList.add('done');
