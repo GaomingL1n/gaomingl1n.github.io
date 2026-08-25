@@ -9,7 +9,7 @@
  *    on later page loads (browsers unlock autoplay-with-sound post-interaction)
  *  - cross-page continuity: play state is saved to sessionStorage so the music
  *    continues where it left off after navigating between pages
- *  - default volume of 20% (requirement), persisted across pages
+ *  - default volume of 10% (requirement), persisted across pages
  *
  * Playlist is read from /music/playlist.json (site-root-relative because
  * baseurl is "").
@@ -18,7 +18,7 @@
   'use strict';
 
   var PLAYLIST_URL = '/music/playlist.json';
-  var DEFAULT_VOLUME = 0.2;
+  var DEFAULT_VOLUME = 0.1;
   var SAVE_KEY = 'musicPlayerState';        // sessionStorage: survives page navigations, clears on tab close
   var INTERACT_KEY = 'musicHasInteracted';  // localStorage: visitor played once on this domain before
 
@@ -68,7 +68,7 @@
     var len = ap.list.audios.length;
     var idx = Math.min(Math.max(parseInt(s.trackIndex, 10) || 0, 0), len - 1);
 
-    // Apply volume before any playback so the 20% default is honoured.
+    // Apply volume before any playback so the 10% default is honoured.
     ap.audio.volume = (typeof s.volume === 'number' && isFinite(s.volume))
       ? Math.min(Math.max(s.volume, 0), 1)
       : DEFAULT_VOLUME;
