@@ -5,7 +5,7 @@
  * 但只有页面上存在 #door-overlay 时才动作，其他页面直接 no-op。
  *
  * 行为：
- *  - 每个浏览器只显示一次（localStorage 'door-opened'）
+ *  - 每次打开主页都会显示（不设“只显示一次”标记）
  *  - 点击 OPEN → 门转开、遮罩背景变透明、动画播完销毁自身；同时作为
  *    播放手势调用 window.musicPlayer.play()（取代原来的 ▶ 播放按钮）
  *  - 按 ESC 直接跳过
@@ -15,16 +15,12 @@
   var overlay = document.getElementById('door-overlay');
   if (!overlay) return;
 
-  var KEY = 'door-opened';
-  var seen = false;
-  try { seen = localStorage.getItem(KEY) === '1'; } catch (e) {}
-
   var bot = /bot|crawl|spider|slurp|bingpreview|headless|lighthouse/i
             .test(navigator.userAgent);
   var reduceMotion = window.matchMedia
     && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  if (seen || bot || reduceMotion) {
+  if (bot || reduceMotion) {
     overlay.remove();
     return;
   }
@@ -34,7 +30,6 @@
   function openDoor() {
     if (overlay.classList.contains('open')) return;
     overlay.classList.add('open'); // 门转开，背景变透明，直接透出主页
-    try { localStorage.setItem(KEY, '1'); } catch (e) {}
 
     // OPEN 兼任播放按钮：点击即开音乐（门遮罩在播放器之下，不挡音乐）。
     // music-player.js 在 door.js 之前加载并同步暴露 window.musicPlayer。
