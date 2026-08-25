@@ -13,18 +13,16 @@ layout: compress
 
   <body>
 
+    {% if page.url == "/" %}
+      {% include door.html %}
+    {% endif %}
+
     {% include browser-upgrade.html %}
     {% include masthead.html %}
 
     {{ content }}
 
     {% include music-player.html %}
-
-    {% if page.url == "/" %}
-      {% include door.html %}
-    {% endif %}
-
-
 
     {% include scripts.html %}
 

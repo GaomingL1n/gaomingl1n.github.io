@@ -25,10 +25,13 @@ body::before {
   background-size: cover;
 }
 
-/* ---- 2. 卡片通用配方（三处共用） ---- */
+/* ---- 2. 卡片通用配方（四处共用） ----
+ * 除了作者卡/单页正文/列表条目外，还包含归档页标题 h1.page__title
+ * （Publications / Talks 等列表页顶部的标题行，主题里它不在任何卡片容器内）。 */
 .author-card,
 .page__inner-wrap,
-.archive__item {
+.archive__item,
+.archive .page__title {
   background: rgba(250, 251, 252, 0.55);          /* 淡灰半透明 */
   -webkit-backdrop-filter: blur(12px) saturate(1.3);
   backdrop-filter: blur(12px) saturate(1.3);      /* 磨砂玻璃 */
@@ -56,15 +59,53 @@ body::before {
 .page__inner-wrap {
   margin-bottom: 1.5em; /* 单页正文卡片与其下内容之间 */
 }
+.archive .page__title {
+  margin-bottom: 1em; /* 标题卡与其下第一张条目卡之间留白 */
+}
 .archive {
   padding: 0.5em; /* 列表容器边缘留白，卡片不贴边 */
 }
 
-/* ---- 5. 移动端微调（<1024px 侧边栏非固定，卡片 padding 略减） ---- */
+/* ---- 5. 顶部导航栏：磨砂玻璃，透出背景图 ----
+ * 主题 .masthead 是纯白固定条、nav.greedy-nav 也是白底，会把背景图盖成一整条空白。
+ * 这里中和成与卡片一致的淡灰磨砂，让背景图从顶部导航也透出来（导航文字仍清晰）。 */
+.masthead {
+  background: rgba(250, 251, 252, 0.55);
+  -webkit-backdrop-filter: blur(12px) saturate(1.3);
+  backdrop-filter: blur(12px) saturate(1.3);      /* 磨砂玻璃 */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.65);
+}
+.masthead .greedy-nav {
+  background: transparent; /* 中和 .greedy-nav 的白底，透出上层磨砂 */
+}
+
+/* 导航链接按钮化：每个“切换”项套一个圆角小盒。
+ * 背景比卡片更实（半透明程度更弱）：rgba 0.78 vs 卡片的 0.55，
+ * 按钮在磨砂导航条上更醒目、可点感更强；磨砂模糊仍在，背景图照常透出。 */
+.masthead .greedy-nav .visible-links .masthead__menu-item a {
+  border-radius: 999px;
+  background: rgba(250, 251, 252, 0.78);
+  -webkit-backdrop-filter: blur(12px) saturate(1.3);
+  backdrop-filter: blur(12px) saturate(1.3);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  padding: 0.4em 1.1em;
+  margin: 0 0.25rem;
+}
+/* 站点名（brand）保持纯文字，不套按钮盒 */
+.masthead .greedy-nav .visible-links .masthead__menu-item--lg a {
+  border-radius: 0;
+  background: transparent;
+  border: 0;
+  padding: 0.5rem 0;
+  margin: 0 1rem;
+}
+
+/* ---- 6. 移动端微调（<1024px 侧边栏非固定，卡片 padding 略减） ---- */
 @media (max-width: 1023px) {
   .author-card,
   .page__inner-wrap,
-  .archive__item {
+  .archive__item,
+  .archive .page__title {
     padding: 1em 1.2em;
   }
 }
