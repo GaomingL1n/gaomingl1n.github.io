@@ -1,0 +1,59 @@
+/* Music player (APlayer wrapper) customizations */
+
+/* APlayer's fixed mode anchors bottom-LEFT by default; anchor bottom-RIGHT instead. */
+.aplayer-fixed,
+.aplayer-fixed .aplayer-body {
+  left: auto;
+  right: 1rem;
+}
+.aplayer-fixed .aplayer-body {
+  width: 360px;
+  max-width: calc(100vw - 2rem);
+}
+
+/* Keep the player above page content (theme masthead is top, so no collision). */
+.aplayer-fixed {
+  z-index: 9999;
+}
+
+/* First-visit play button (shown until the visitor starts playback). */
+#music-play-overlay {
+  position: fixed;
+  right: 1rem;
+  bottom: 5.5rem;            /* sits above the APlayer bar */
+  z-index: 10000;
+  padding: 0.6em 1.2em;
+  border: 0;
+  border-radius: 999px;
+  background: #0057a8;
+  color: #fff;
+  font-size: 0.95rem;
+  font-family: inherit;
+  line-height: 1.2;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  transition: opacity 0.2s;
+}
+#music-play-overlay:hover {
+  opacity: 0.9;
+}
+#music-play-overlay[hidden] {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .aplayer-fixed .aplayer-body {
+    width: 280px;
+    max-width: calc(100vw - 1rem);
+  }
+  .aplayer-fixed,
+  .aplayer-fixed .aplayer-body {
+    right: 0.5rem;
+  }
+  #music-play-overlay {
+    right: 0.5rem;
+    bottom: 5rem;
+    font-size: 0.85rem;
+    padding: 0.5em 1em;
+  }
+}
