@@ -31,9 +31,9 @@
      background2.png）。构建时自动枚举，新增这种命名的图片无需改任何代码。 -->
 <script>
 (function () {
+  {% assign bgs = site.static_files | where_exp: "f", "f.basename contains 'background'" %}
   var BGS = [
-    {% for f in site.static_files %}{% if f.basename matches '^background[0-9]*$' %}
-    '{{ f.path }}',{% endif %}{% endfor %}
+    {% for f in bgs %}'{{ f.path }}',{% endfor %}
   ];
   var pick = BGS[Math.floor(Math.random() * BGS.length)];
   if (pick) {
